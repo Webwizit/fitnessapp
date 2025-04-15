@@ -1,0 +1,13 @@
+<!-- templates/stripe_success.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stripe Payment Success</title>
+</head>
+<body>
+    <h1>Stripe Payment Successful</h1>
+    <p>Your transaction was successful!</p>
+    <p>Session ID: {{ session_id }}</p>
+    <a href="{% url 'index' %}">Go back to Home</a>
+</body>
+</html>

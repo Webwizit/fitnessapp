@@ -1,0 +1,14 @@
+<!-- templates/paypal_success.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PayPal Payment Success</title>
+</head>
+<body>
+    <h1>PayPal Payment Successful</h1>
+    <p>Your PayPal payment was successful.</p>
+    <p>Payment ID: {{ payment_id }}</p>
+    <p>Payer ID: {{ payer_id }}</p>
+    <a href="{% url 'index' %}">Go back to Home</a>
+</body>
+</html>

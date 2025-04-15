@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Video Payments</title>
+</head>
+<body>
+    <h1>Available Videos</h1>
+    <ul>
+        {% for video in videos %}
+            <li>
+                <h2>{{ video.title }}</h2>
+                <!-- Video Player -->
+
+<!-- Video Player -->
+<video width="640" height="360" controls>
+    <source src="{% static 'videos.video' %}" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+                {% if video.Description %}
+                    <p>{{ video.Description }}</p>
+                {% endif %}
+                <p>Package: {{ video.package }}</p>
+                <p>Price: ${{ video.fixed_price }}</p>
+                <p>
+                    
+                    <p>
+                        <a href="{% url 'paypal_payment' video.id %}">Pay with PayPal</a>
+                    </p>
+                </p>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pay with PayPal</title>
+</head>
+<body>
+    <h2>Payment for: {{ video.title }}</h2>
+    <p>Price: ${{ video.fixed_price }}</p>
+  
+    <!-- Include the PayPal JavaScript SDK using your client ID -->
+    <script src="https://www.paypal.com/sdk/js?client-id={{ paypal_client_id }}&currency=USD"></script>
+  
+    <div id="paypal-button-container"></div>
+  
+    <script>
+      paypal.Buttons({
+          // Set up the transaction
+          createOrder: function(data, actions) {
+              return actions.order.create({
+                  purchase_units: [{
+                      amount: {
+                          value: '{{ video.fixed_price }}'
+                      }
+                  }]
+              });
+          },
+          // Finalize the transaction
+          onApprove: function(data, actions) {
+              return actions.order.capture().then(function(details) {
+                  // Optionally, use AJAX here to create a Payment record on the server.
+                  // For now, redirect to a success page with the order ID.
+                  window.location.href = "{% url 'paypal_success' %}?paymentId=" + data.orderID;
+              });
+          }
+      }).render('#paypal-button-container');  // Renders the PayPal button into the container
+    </script>
+</body>
+</html>
